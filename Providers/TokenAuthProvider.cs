@@ -9,11 +9,11 @@ namespace AspMVCAdminLTE.Providers
     public class TokenAuthProvider : OAuthAuthorizationServerProvider
     {
         private User user = null;
-        private IRepositoryWrapper _repoWrapper;
+        private IRepositoryWrapper repositoryWrapper;
 
-        public TokenAuthProvider(IRepositoryWrapper repoWrapper)
+        public TokenAuthProvider(IRepositoryWrapper repositoryWrapper)
         {
-            _repoWrapper = repoWrapper;
+            this.repositoryWrapper = repositoryWrapper;
         }
 
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
@@ -32,7 +32,7 @@ namespace AspMVCAdminLTE.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var user = _repoWrapper.User.ValidateUser(context.UserName, context.Password);
+            var user = repositoryWrapper.User.ValidateUser(context.UserName, context.Password);
             if (user == null)
             {
                 context.SetError("invalid_grant", "Provided username and password is incorrect");
