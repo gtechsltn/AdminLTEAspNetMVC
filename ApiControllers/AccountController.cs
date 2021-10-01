@@ -25,7 +25,9 @@ namespace AspMVCAdminLTE.ApiControllers
                 if (ModelState.IsValid)
                 {
                     user.UserRole = UserRole.Normal; //Make sure the userType is not set to admin.
+                    user.Password = Utils.Encryption.HashString(user.Password);
                     var result = repositoryWrapper.User.Create(user);
+                    repositoryWrapper.Save();
                     if (result != null)
                         return Success(result);
                     else
@@ -45,11 +47,11 @@ namespace AspMVCAdminLTE.ApiControllers
             return Success(repositoryWrapper.User.FindAll().ToList());
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin, Normal")]
+        [Authorize(Roles = "Admin,Normal")]
         public IHttpActionResult GetProfile()
         {
-            return Success(repositoryWrapper.User.FindByCondition(x => x.Id == GetUserId()));
+            var userId = GetUserId();
+            return Success(repositoryWrapper.User.FindByCondition(x => x.Id == userId));
         }
     }
 }

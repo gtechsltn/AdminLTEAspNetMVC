@@ -42,8 +42,6 @@ namespace AspMVCAdminLTE.Utils
 
         #endregion Private/Protected Properties
 
-
-
         #region Constructor
 
         /// <summary>
@@ -64,8 +62,6 @@ namespace AspMVCAdminLTE.Utils
         }
 
         #endregion Constructor
-
-
 
         #region Public Methods
 

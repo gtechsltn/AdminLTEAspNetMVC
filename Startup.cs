@@ -35,6 +35,8 @@ namespace AspMVCAdminLTE
             app.UseWebApi(config);
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             Database.SetInitializer(new CreateDatabaseIfNotExists<RepositoryContext>());
+
+            GlobalConfiguration.Configuration.EnsureInitialized();
         }
 
         public void ConfigureOAuth(IAppBuilder app)
